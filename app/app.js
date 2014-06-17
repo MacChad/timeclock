@@ -1,4 +1,4 @@
-var timeclock = angular.module("timeclock", ['angularMoment'])
+var timeclock = angular.module("timeclock", ['angularMoment','ui.date'])
 .config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", { controller: "clock", templateUrl: "app/views/clock.html" })
