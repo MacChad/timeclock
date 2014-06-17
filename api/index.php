@@ -13,7 +13,7 @@ echo $_SERVER['HTTP_HOST'];
 //         require_once 'db.config.prod.php';
 //          break;
 // }
- switch ($_SERVER['HTTP_HOST']) {
+ switch ($_SERVER['SERVER_NAME']) {
      case 'timeclock-macchad.rhcloud.com' :
          require_once 'db.config.prod.php';
          break;
