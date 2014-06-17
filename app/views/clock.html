@@ -1,4 +1,9 @@
-<p class="form-inline"><select ng-model="currentUser" ng-change="getTimes()"><option value="0">Who are you?</option><option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option></select> <button class="close" ng-click="reset()" style="float:none;">&times;</button></p>
+<p class="form-inline"><select class="form-control" ng-model="currentUser" ng-change="getTimes()">
+    <option value="0">Who are you?</option>
+    <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option></select>
+    <button class="close" ng-click="reset()" style="float:none;">&times;</button>
+       <span>Current Date/Time: <strong><span my-current-time="format"></span></strong></span> 
+    </p>
 <p class="lead">{{currentStatus}}</p>
 <p class="form-inline"><button class="btn" id="clockIn" ng-disabled="clockedIn || currentUser==0" ng-click="clock('clockIn')">Clock In</button> <button class="btn" id="clockOut" ng-disabled="!clockedIn" ng-click="clock('clockOut')">Clock Out</button></p>
 <div ng-show="currentUser">

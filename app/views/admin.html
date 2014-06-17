@@ -1,4 +1,12 @@
-<input type="date" ng-model="selectedDate" ng-change="getTimes()" />
+<form name="myForm" role="form">
+    <div class="row">
+        
+    <div class="form-group col-md-2">
+        <input class="form-control" type="date" ng-model="selectedDate" ng-change="getTimes()" />
+    </div>
+    </div>
+    
+</form>
 <div>
     <h2>Pay Period Details</h2>
     <h3>{{startDate | date:'longDate'}} to {{endDate | date:'longDate'}}</h3>

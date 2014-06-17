@@ -5,7 +5,7 @@ var timeclock = angular.module("timeclock", ['angularMoment'])
         .when("/admin/", { controller: "admin", templateUrl: "app/views/admin.html" })
         .when("/admin/edit", { controller: "edit", templateUrl: "app/views/edit.html" })
         .when("/admin/users", { controller: "users", templateUrl: "app/views/users.html" })
-        .otherwise({ redirectTo: '/timeclock' });
+        .otherwise({ redirectTo: '/' });
 })
 .constant('COMPANYNAME', 'Cornerstone Christian Church')
 .factory('usersApi', ['$http', function($http) {
@@ -67,6 +67,14 @@ var timeclock = angular.module("timeclock", ['angularMoment'])
         }
     };
 })
+.factory('CurrentTime', function() {
+    return {
+        getCurrentTime: function () {
+            var curTime = moment();
+        return curTime;
+        }
+    };
+})
 .factory('totaltimeFactory', function() {
     return {
         getTotal : function(obj) {
@@ -78,4 +86,39 @@ var timeclock = angular.module("timeclock", ['angularMoment'])
             return total;
         }
     };
-});
+})
+.directive('myCurrentTime', function($timeout, dateFilter) {
+    // return the directive link function. (compile function not needed)
+    return function(scope, element, attrs) {
+      var format,  // date format
+          timeoutId; // timeoutId, so that we can cancel the time updates
+
+      // used to update the UI
+      function updateTime() {
+        element.text(dateFilter(new Date(), format));
+      }
+
+      // watch the expression, and update the UI on change.
+      scope.$watch(attrs.myCurrentTime, function(value) {
+        format = value;
+        updateTime();
+      });
+
+      // schedule update in one second
+      function updateLater() {
+        // save the timeoutId for canceling
+        timeoutId = $timeout(function() {
+          updateTime(); // update DOM
+          updateLater(); // schedule another update
+        }, 1000);
+      }
+
+      // listen on DOM destroy (removal) event, and cancel the next UI update
+      // to prevent updating time ofter the DOM element was removed.
+      element.bind('$destroy', function() {
+        $timeout.cancel(timeoutId);
+      });
+
+      updateLater(); // kick off the UI update process.
+    }
+  });;

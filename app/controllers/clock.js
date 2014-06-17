@@ -1,4 +1,4 @@
-timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory) {
+timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory, CurrentTime) {
     $scope.currentUser = 0;
     $scope.clockedIn = false;
 
@@ -74,6 +74,12 @@ timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperi
             });
         }
     };
+    // $scope.curTime = function(time) {
+    //     return moment(time);
+    // }
+    //$scope.curTime = CurrentTime.getCurrentTime();
+    //$scope.curTime().$apply;
+    $scope.format = 'M/d/yy h:mm:ss a';
 
     $scope.reset = function() {
         reset();
