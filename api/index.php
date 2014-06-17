@@ -3,7 +3,7 @@ header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 date_default_timezone_set('America/Chicago');
 require_once 'meekrodb.2.1.class.php';
-//echo $_SERVER['HTTP_HOST'];
+echo $_SERVER['HTTP_HOST'];
 
 // switch ($_GET['env']) {
 //     case 'dev':

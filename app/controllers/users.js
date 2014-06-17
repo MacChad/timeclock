@@ -7,9 +7,9 @@ timeclock.controller('users', function users($scope, usersApi) {
         $scope.newUser = '';
         usersApi.get(1).then(function(response) {
             $scope.activeUsers = response.data;
-            console.log(response.data);
+           // console.log(response.data);
         }, function(err) {
-            console.log ("something bad happened.");
+            alert("something bad happened.");
         });
         usersApi.get(0).then(function(response) {
             $scope.inactiveUsers = response.data;
