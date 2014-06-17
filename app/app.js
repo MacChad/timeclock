@@ -11,13 +11,13 @@ var timeclock = angular.module("timeclock", ['angularMoment'])
 .factory('usersApi', ['$http', function($http) {
     return {
         add : function(name) {
-            return $http.get("api/?action=usersAdd&name=" + name);
+            return $http.get("api/index.php?action=usersAdd&name=" + name);
         },
         get : function(active) {
-            return $http.get("api/?action=usersGet&active=" + active);
+            return $http.get("api/index.php?action=usersGet&active=" + active);
         },
         update : function(id) {
-            return $http.get("api/?action=usersUpdate&id=" + id);
+            return $http.get("api/index.php?action=usersUpdate&id=" + id);
         }
     };
 }])
@@ -25,27 +25,27 @@ var timeclock = angular.module("timeclock", ['angularMoment'])
 .factory('clockApi', ['$http', function($http) {
     return {
         add : function(user, start, end) {
-            return $http.get("api/?action=clockAdd&user=" + user + "&start=" + start + "&end=" + end);
+            return $http.get("api/index.php?action=clockAdd&user=" + user + "&start=" + start + "&end=" + end);
         },
         clockIn : function(user,start) {
-            return $http.get("api/?action=clockAdd&user=" + user+ "&start=" + start);
+            return $http.get("api/index.php?action=clockAdd&user=" + user+ "&start=" + start);
         },
         get : function(user, start, end) {
-            return $http.get("api/?action=clockGet&user=" + user + "&start=" + start + "&end=" + end);
+            return $http.get("api/index.php?action=clockGet&user=" + user + "&start=" + start + "&end=" + end);
         },
         getLast : function(user) {
-            return $http.get("api/?action=clockGet&user=" + user);
+            return $http.get("api/index.php?action=clockGet&user=" + user);
         },
         update : function(id, start, end) {
-            return $http.get("api/?action=clockUpdate&id=" + id + "&start=" + start + "&end=" + end);
+            return $http.get("api/index.php?action=clockUpdate&id=" + id + "&start=" + start + "&end=" + end);
         },
         clockOut : function(user, end) {
             return this.getLast(user).then(function(response) {
-                return $http.get("api/?action=clockUpdate&id=" + response.data.id + "&end=" + end);
+                return $http.get("api/index.php?action=clockUpdate&id=" + response.data.id + "&end=" + end);
             });
         },
         remove : function(id) {
-            return $http.get("api/?action=clockDelete&id=" + id);
+            return $http.get("api/index.php?action=clockDelete&id=" + id);
         }
     };
 }])
