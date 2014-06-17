@@ -1,16 +1,18 @@
 <?php
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-date_default_timezone_set('America/New_York');
+date_default_timezone_set('America/Chicago');
 require_once 'meekrodb.2.1.class.php';
-require_once 'db.config.dev.php';
-//require_once 'db.config.prod.php';
-//DB::$user = 'macchad';
-//DB::$host = '127.8.67.1';
-//DB::$password = '';
-// prod_user = 'tcuser';
-//prod: 'NHtvL8qttSdY7eEm'
-//DB::$dbName = 'c9';
+
+switch ($_SERVER['HTTP_HOST']) {
+    case 'rhcloud.com' :
+        require_once 'db.config.prod.php';
+        break;
+    default :
+        require_once 'db.config.prod.php';
+        break;
+}
+
 DB::$param_char = '%%';
 
 switch ($_GET['action']) {
