@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="timeclock">
+<head>
+<meta charset="utf-8">
+<title>{{ 'Cornerstone Christian Church' }}</title>
+<base href="/timeclock/" />
+<link href="/timeclock/css/bootstrap.min.css" rel="stylesheet">
+<link href="/timeclock/css/timeclock.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="header" ng-include="views/nav.html"></div>
+    <div class="contain">
+        <h1>{{ 'Cornerstone Christian Church' }}</h1>
+        <div ng-view></div>
+    </div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="js/angular-moment.min.js"></script>
+<script src="app/app.js"></script>
+<script src="app/controllers/clock.js"></script>
+<script src="app/controllers/admin.js"></script>
+<script src="app/controllers/users.js"></script>
+<script src="app/controllers/edit.js"></script>
+</body>
+</html>
