@@ -13,19 +13,22 @@
 <div class="row" ng-show="currentUser">
     <div class="col-md-6">
         <div class="form-group">
-        <input placeholder="Enter Date" ui-date class="form-control" ng-required="true" ng-model="selectedDate" /> {{ selectedDate | amDateFormat:'dddd, MMMM Do YYYY'}}
+        
+        <input placeholder="Enter Date" datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="selectedDate" /> {{ selectedDate | amDateFormat:'dddd, MMMM Do YYYY'}}
             <!--<input ui-date  class="form-control" type="date" required ng-model="selectedDate" ng-change="getTimes()" />-->
         </div>
     </div>
 </div>
 <div ng-show="currentUser" class="row"> 
-<div class="col-md-6">
-    <div class="form-group">
-        <input type="time" required placeholder="In" class="form-control" ng-model="startTime"  />
-        <input type="time" required placeholder="Out" class="form-control" ng-model="endTime" />
+
+
+    <timepicker required hour-step="1" minute-step="15" placeholder="In" ng-model="startTime"></timepicker>
+    <timepicker required placeholder="Out" ng-model="endTime"></timepicker>
+       <!-- <input type="time" required placeholder="In" class="form-control" ng-model="startTime"  />
+        <input type="time" required placeholder="Out" class="form-control" ng-model="endTime" /> --><span>{{ startTime }} / {{endTime}}</span>
         <button ng-disabled="editTime.$invalid" class="btn" ng-click="addRow()">Add</button>
-    </div>
-    </div>
+
+
 </div>
 </form>
 <div ng-show="currentUser">
