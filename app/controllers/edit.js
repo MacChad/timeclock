@@ -5,13 +5,18 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
     $scope.selectedDate = new Date();
     $scope.startDate = "";
     $scope.endDate = "";
-    $scope.startTime = "";
-    $scope.endTime = "";
-
+    $scope.startTime = new Date();;
+    $scope.endTime = new Date();;
+    //$scope.whatever = new Date();
     //get the list of users
     usersApi.get(1).then(function(response) {
         $scope.users = response.data;
     });
+    $scope.changedTime = function() {
+        //console.log('My Time changed to: ' + $scope.whatever);
+        console.log('Start Time changed to: ' + $scope.startTime);
+        console.log('End Time changed to: ' + $scope.endTime);
+     };  
 
     function getTimes(date) {
         var obj = {};

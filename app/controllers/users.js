@@ -2,7 +2,7 @@ timeclock.controller('users', function users($scope, usersApi) {
     $scope.newUser = '';
 
     getUsers();
-
+    $scope.mytime = new Date();
     function getUsers() {
         $scope.newUser = '';
         usersApi.get(1).then(function(response) {
