@@ -5,8 +5,9 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
     $scope.selectedDate = new Date();
     $scope.startDate = "";
     $scope.endDate = "";
-    $scope.startTime = new Date();;
-    $scope.endTime = new Date();;
+    $scope.startTime = new Date();
+    $scope.endTime = new Date();
+    $scope.currentDate = new Date();
     //$scope.whatever = new Date();
     //get the list of users
     usersApi.get(1).then(function(response) {

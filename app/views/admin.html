@@ -1,9 +1,17 @@
 <form name="myForm" role="form">
     <div class="row">
         
-    <div class="form-group col-md-2">
-        <input class="form-control" type="date" ng-model="selectedDate" ng-change="getTimes()" />
-    </div>
+   <!-- <div class="form-group col-md-3">
+        <input type="text" class="form-control" datepicker-popup="shortDate" init-date="currentDate" ng-model="selectedDate" ng-change="getTimes()" />
+    </div> -->
+    <div class="col-md-3">
+            <p class="input-group">
+              <input type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="selectedDate" is-open="opened" ng-change="getTimes()" max-date="today()" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
     </div>
     
 </form>

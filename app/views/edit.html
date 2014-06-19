@@ -13,7 +13,7 @@
 <div class="row" ng-show="currentUser">
     <div class="col-md-6">
         <div class="form-group">
-            <input placeholder="Enter Date" datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="selectedDate" /> {{ selectedDate | amDateFormat:'dddd, MMMM Do YYYY'}}
+            <input placeholder="Enter Date" max-date="currentDate" datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="selectedDate" /> {{ selectedDate | amDateFormat:'dddd, MMMM Do YYYY'}}
             <!--<input ui-date  class="form-control" type="date" required ng-model="selectedDate" ng-change="getTimes()" />-->
         </div>
     </div>
