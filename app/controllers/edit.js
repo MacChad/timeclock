@@ -1,8 +1,8 @@
 timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory) {
     $scope.currentTimes = {};
     $scope.currentUser = 0;
-    // $scope.selectedDate = moment();
-    $scope.selectedDate = new Date();
+    $scope.selectedDate = moment().format('MM/DD/YYYY');
+    //$scope.selectedDate = moment().format('MM/DD/YYYY');
     $scope.startDate = "";
     $scope.endDate = "";
     $scope.startTime = new Date();
@@ -13,10 +13,28 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
     usersApi.get(1).then(function(response) {
         $scope.users = response.data;
     });
+    
+    $scope.open = function($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        //console.log('clicked');
+        $scope.opened = true;
+    };
+
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+        };
+
+      //$scope.initDate = new Date('2016-15-20');
+      $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/DD/YYYY'];
+      $scope.format = $scope.formats[0];
+    
+    
     $scope.changedTime = function() {
         //console.log('My Time changed to: ' + $scope.whatever);
-        console.log('Start Time changed to: ' + $scope.startTime);
-        console.log('End Time changed to: ' + $scope.endTime);
+        console.log('Start Time changed to: ' + moment($scope.startTime).format("HH:mm"));
+        //console.log('End Time changed to: ' + moment($scope.endTime,'shortTime');
      };  
 
     function getTimes(date) {
@@ -42,8 +60,8 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
     function reset() {
         $scope.currentTimes = {};
         $scope.currentUser = 0;
-        //$scope.selectedDate = moment();
-        $scope.selectedDate = new Date();
+        $scope.selectedDate = moment('MM/DD/YYYY');
+        //$scope.selectedDate = new Date();
         $scope.startDate = "";
         $scope.endDate = "";
         $scope.startTime = "";
@@ -60,8 +78,8 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
 
     $scope.addRow = function() {
         var formattedDate = moment($scope.selectedDate).format("YYYY-MM-DD");
-        var start = moment(formattedDate + " " + $scope.startTime, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm:ss");
-        var end = moment(formattedDate + " " + $scope.endTime, "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm:ss");
+        var start = moment(formattedDate + " " + moment($scope.startTime).format('HH:mm'), "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm:ss");
+        var end = moment(formattedDate + " " + moment($scope.endTime).format('HH:mm'), "YYYY-MM-DD HH:mm").format("YYYY-MM-DD HH:mm:ss");
         clockApi.add($scope.currentUser, start, end).then(function() {
             //$scope.currentTimes = getTimes($scope.selectedDate);
             $scope.currentTimes = getTimes($scope.selectedDate);

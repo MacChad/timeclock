@@ -25,7 +25,7 @@
         
         <div class="col-md-3">
         <label class="control-label" for="time1">In: </label>
-            <timepicker id="time1" hour-step="1" ng-required="true" ng-change="changedTime()" minute-step="1" ng-model="$parent.startTime"></timepicker>
+            <timepicker id="time1" hour-step="1" ng-required="true" ng-change="$parent.changedTime()" minute-step="1" ng-model="$parent.startTime"></timepicker>
         </div>
             
 
@@ -33,13 +33,13 @@
         
         <div class="col-md-3">
         <label class="control-label" for="time2">Out:</label>
-            <timepicker id="time2" ng-required="true" ng-change="changedTime()" ng-model="$parent.endTime"></timepicker>
+            <timepicker id="time2" ng-required="true" ng-change="$parent.changedTime()" ng-model="$parent.endTime"></timepicker>
         </div>
 
 </div>
            <!-- <input type="time" required placeholder="In" class="form-control" ng-model="startTime"  />
             <input type="time" required placeholder="Out" class="form-control" ng-model="endTime" /> -->
-            <!--<span>{{ startTime | date:'shortTime' }} / {{ endTime | date:'shortTime' }}</span>-->
+            <span>{{ startTime | date:'shortTime'}} / {{ endTime | date:'shortTime' }}</span>
 <div class="row">
     <button ng-show="currentUser && startTime && endTime && selectedDate" ng-disabled="editTime.$invalid" class="btn" ng-click="addRow()">Add</button>
 </div>
