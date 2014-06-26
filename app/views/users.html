@@ -1,26 +1,36 @@
-<form class="form-inline" role="form">
-    <div class="col-md-4">
+<div class="row">
+<form class="form-inline" name="addUserForm" role="form">
+    <div class="col-md-8">
         <div class="form-group">
-            <input type="text" class="form-control" ng-model="newUser"> <button class="btn" ng-click="addUser()">Add Employee</button>
+            <input type="text" name="nameInput" placeholder="Enter Name" ng-required="true" class="form-control" ng-model="newUser.name">
+            <input type="text" name="pin" placeholder="Enter Pin" ng-minlength="4" ng-maxlength="4" class="form-control" ng-required="true" ng-model="newUser.pin"> <button class="btn" ng-click="addUser()" ng-disabled="addUserForm.$invalid">Add Employee</button>
         </div>
-
+<span ng-show="addUserForm.$invalid && (addUserForm.pin.$error.required || addUserForm.nameInput.$error.required)" class="help-inline">Required</span>
+<span ng-show="addUserForm.$invalid && addUserForm.pin.$error.minlength" class="help-inline">PIN should be 4 numbers</span> 
     </div>
 </form>
-<h2>Active Employees</h2>
-<table class="table table-striped table-hover">
-    <tbody>
-        <tr ng-repeat="user in activeUsers">
-            <td width="80%">{{user.name}}</td>
-            <td width="20%"><a class="btn btn-link" ng-click="updateUser(user)">Deactivate</a></td>
-        </tr>
-    </tbody>
-</table>
-<h2>Inactive Employees</h2>
-<table class="table table-striped table-hover">
-    <tbody>
-        <tr ng-repeat="user in inactiveUsers">
-            <td width="80%">{{user.name}}</td>
-            <td width="20%"><a class="btn btn-link" ng-click="updateUser(user)">Activate</a></td>
-        </tr>
-    </tbody>
-</table>
+</div>
+<div class="row">
+<div class="col-md-6">
+    <h2>Active Employees</h2>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr ng-repeat="user in activeUsers">
+                <td><a class="btn btn-default" href="#/admin/users/{{user.id}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td>{{user.name}}</td>
+                <td><a class="btn btn-link" ng-click="updateUser(user)">Deactivate</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Inactive Employees</h2>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr ng-repeat="user in inactiveUsers">
+                <td><a class="btn btn-default" href="#/admin/users/{{user.id}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td>{{user.name}}</td>
+                <td><a class="btn btn-link" ng-click="updateUser(user)">Activate</a></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

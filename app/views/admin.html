@@ -4,35 +4,49 @@
    <!-- <div class="form-group col-md-3">
         <input type="text" class="form-control" datepicker-popup="shortDate" init-date="currentDate" ng-model="selectedDate" ng-change="getTimes()" />
     </div> -->
-    <div class="col-md-3">
-            <p class="input-group">
-              <input type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="selectedDate" is-open="opened" ng-change="getTimes()" max-date="today()" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
+    <div class="col-md-6">
+            <div class="form-group form-inline">
+             <input placeholder="Enter Start Date" datepicker-popup="MM/dd/yyyy" class="form-control" ng-required="true" ng-model="pickStartDate" max-date="today()" ng-required="true" close-text="Close"/><!--<span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-            </p>
-        </div>
+              </span>-->
+            <input placeholder="Enter End Date"  datepicker-popup="MM/dd/yyyy" class="form-control" ng-required="true" ng-model="pickEndDate" max-date="today()" ng-required="true" close-text="Close"/><!--<span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>-->
+            <!--<input type="text" class="form-control" datepicker-popup="MM/dd/yyyy" ng-model="selectedDate" is-open="opened" ng-change="getCustomTimes(pickStartDate,pickEndDate)" max-date="today()" ng-required="true" close-text="Close" />-->
+            
+            </div>
+            <button class="btn" ng-click="getCustomTimes(pickStartDate,pickEndDate)">Submit</button>
+    </div>
     </div>
     
 </form>
 <div>
+    <div class="pull-right">
+        <div class="form-inline">
+            <div class="form-group">
+                <!--<input placeholder="Enter Start Date"  datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="pickStartDate" />
+                <input placeholder="Enter End Date"  datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="pickEndDate" />-->
+                <button type="button" class="btn btn-default" ng-csv="currentTimes" filename="export_{{currentUser.name}}_{{currentDate | amDateFormat:'YYYY-mm-dd'}}.csv">Export</button>
+            </div>
+        </div>
+    </div>
     <h2>Pay Period Details</h2>
-    <h3>{{startDate | date:'longDate'}} to {{endDate | date:'longDate'}}</h3>
+    <h3>{{pickStartDate | date:'longDate'}} to {{pickEndDate | date:'longDate'}}</h3>
     <table class="table table-striped table-hover" width="400">
         <thead>
             <tr>
                 <th width="25%">Name</th>
-                <th width="25%">First Week</th>
-                <th width="25%">Second Week</th>
+                <!--<th width="25%">First Week</th>
+                <th width="25%">Second Week</th>-->
                 <th width="25%">Total</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="currentTime in currentTimes | orderBy:name">
                 <td width="25%">{{currentTime.name}}</td>
-                <td width="25%">{{currentTime.times.firstWeekTotal | number:2}}</td>
-                <td width="25%">{{currentTime.times.secondWeekTotal | number:2}}</td>
-                <td width="25%">{{currentTime.times.payperiodTotal | number:2}}</td>
+               <!-- <td width="25%">{{currentTime.times.firstWeekTotal | number:2}}</td>
+                <td width="25%">{{currentTime.times.secondWeekTotal | number:2}}</td>-->
+                <td width="25%">{{currentTime.times | number:2}}</td>
             </tr>
         </tbody>
     </table>

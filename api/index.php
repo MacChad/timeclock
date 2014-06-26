@@ -37,7 +37,13 @@ switch ($_GET['action']) {
         //---pass in name (required)
         //---return success/fail
         if (isset($_GET['name'])) {
-            $results = DB::insert('users', array('name' => $_GET['name']));
+           // $results = DB::insert('users', array('name' => $_GET['name']));
+            $columns = array();
+            $columns['name'] = $_GET['name'];
+            if (isset($_GET['pin'])) {
+                $columns['pin'] = $_GET['pin'];
+            }
+            $results = DB::insert('users', $columns);
         }
     break;
 
@@ -46,16 +52,38 @@ switch ($_GET['action']) {
         //---pass in active (required)
         //---return id, name, active
         if (isset($_GET['active'])) {
-            $results = DB::query('SELECT id, name, active FROM users WHERE active=%%s ORDER BY name ASC', $_GET['active']);
+            $results = DB::query('SELECT id, name, active, pin FROM users WHERE active=%%s ORDER BY name ASC', $_GET['active']);
         }
     break;
-
+    
+    case 'userGet' :
+        if (isset($_GET['id'])) {
+            $results = DB::query('SELECT id, name, active, pin FROM users WHERE id=%%s ORDER BY name ASC', $_GET['id']);
+        }
+    break;
+        
     case 'usersUpdate' :
         // update = change status
         // pass in id (required)
         // return success/fail
         if (isset($_GET['id'])) {
             $results = DB::update('users', array('active' => DB::sqleval("NOT active")), 'id=%%s', $_GET['id']);
+        }
+    break;
+    case 'updateUserDetails' :
+        // update = change user details
+        // pass in id (required), other changed fields
+        // return success/fail
+         $columns = array();
+            if (isset($_GET['name'])) {
+                $columns['name'] = $_GET['name'];
+            }
+            $columns['name'] = $_GET['name'];
+            if (isset($_GET['pin'])) {
+                $columns['pin'] = $_GET['pin'];
+            }
+        if (isset($_GET['id'])) {
+            $results = DB::update('users', $columns, 'id=%%s', $_GET['id']);
         }
     break;
 

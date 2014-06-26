@@ -1,7 +1,9 @@
 timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory, CurrentTime) {
     $scope.currentUser = 0;
     $scope.clockedIn = false;
-
+    $scope.inputPin = "";
+    var objCurUser = {};
+    $scope.errorMsg = "";
     //get the list of users
     usersApi.get(1).then(function(response) {
         $scope.users = response.data;
@@ -46,24 +48,61 @@ timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperi
         $scope.clockedIn = false;
         $scope.currentStatus = "";
         $scope.currentUser = 0;
+        $scope.correctPin = false;
+        $scope.inputPin = "";
+        objCurUser = {};
+        console.log('reset!');
     }
 
     $scope.getTimes = function() {
         if($scope.currentUser > 0) {
             getStatus($scope.currentUser);
             $scope.currentTimes = getTimes(moment());
-            console.log(moment());
+            //console.log(moment());
             $scope.previousTimes = getTimes(moment().day(-13));
+            //clearPin();
+            //$scope.inputPin = "";
+            //$scope.correctPin = false;
+            setCurrentUser();
+            //console.log($scope.users[$scope.currentUser]);
+            //alert('changed');
             //console.log('previous time:' + $scope.previousTimes.clockInTime);
             //console.log('current time:' + $scope.currentTimes.clockInTime);
+        } else {
+            //console.log('reset everything back');
+            reset();
+        }
+    };
+    $scope.changeUser = function() {
+        if($scope.currentUser > 0) {
+            objCurUser = {};
+            clearPin();
+            
+            setCurrentUser();
+            getStatus($scope.currentUser);
         } else {
             reset();
         }
     };
-
+    function setCurrentUser() {
+        
+        for (var i=0;i<$scope.users.length;i++) {
+            if ($scope.users[i].id == $scope.currentUser) {
+                objCurUser = $scope.users[i];
+            }
+        }
+        
+        //objCurUser = $scope.users[$scope.currentUser];
+        
+    }
+    function clearPin() {
+        $scope.inputPin = "";
+        $scope.correctPin = false;
+    }
     $scope.clock = function(inOut) {
         if(inOut === "clockIn") {
             clockApi.clockIn($scope.currentUser, moment().format("YYYY-MM-DD HH:mm:ss")).then(function() {
+                console.log("Clocked in");
                 $scope.getTimes();
             }, function() {
                 alert('something went wrong. try again.');
@@ -74,14 +113,26 @@ timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperi
             });
         }
     };
-    // $scope.curTime = function(time) {
-    //     return moment(time);
-    // }
-    //$scope.curTime = CurrentTime.getCurrentTime();
-    //$scope.curTime().$apply;
-    $scope.format = 'M/d/yy h:mm:ss a';
 
+    $scope.format = 'M/d/yy h:mm:ss a';
+    $scope.logConsole = function() {
+        alert('i got clicked');
+    };
+    $scope.checkPin = function() {
+     //   console.log('clicked' + $scope.inputPin);
+       //console.log("current users pin: " + objCurUser.pin);
+        if (objCurUser.pin === $scope.inputPin) {
+             $scope.correctPin = true;
+             $scope.errorMsg = "";
+             getTimes();
+        } else {
+            $scope.correctPin = false;
+            $scope.errorMsg = "Invalid Pin!";
+        }
+        return $scope.correctPin;
+    };
     $scope.reset = function() {
         reset();
+       // alert('reset');
     };
 });

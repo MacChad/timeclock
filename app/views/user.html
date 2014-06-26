@@ -1,0 +1,29 @@
+<div class="row">
+    <a href="#/admin/users">Back to User List</a>
+</div>
+<div class="alert alert-{{message.cssClass}}">
+    {{message.text}}
+</div>
+<div ng-repeat="user in users">
+
+<div>
+    <form name="editForm" ng-show="user.id" role="form" class="form">
+        <div class="form-group">
+            <label for="name">Name: 
+                <input type="text" class="form-control" name="name" ng-model="user.name">
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="pin">PIN: 
+                <input type="text" class="form-control" name="pin" ng-model="user.pin">
+            </label>
+        </div>
+        <div class="form-group">
+            <button class="btn-primary btn" ng-disabled="editForm.$pristine || editForm.$invalid" ng-click="updateUserDetails(user)">
+            <span class="glyphicon glyphicon-floppy-save"></span> Save!</button>
+        </div>
+    </form>
+    
+</div>
+    
+</div>

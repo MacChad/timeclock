@@ -1,12 +1,30 @@
-       <div class="row"><div class="col-md-3 alert alert-info">Current Date/Time: <strong><span my-current-time="format"></span></strong></div></div>
-<p class="form-inline"><select class="form-control" ng-model="currentUser" ng-change="getTimes()">
-    <option value="0">Who are you?</option>
-    <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option></select>
+<div class="row">
+    <div class="col-md-3 alert alert-info">
+        Current Date/Time: <strong><span my-current-time="format"></span></strong>
+            
+    </div>
+</div>
+<div class="form-inline">
+    <select class="form-control" ng-model="currentUser" ng-change="changeUser()">
+        <option value="0">Who are you?</option>
+        <option ng-repeat="user in users" value="{{user.id}}">{{user.name}}</option>
+    </select>
     <button class="close" ng-click="reset()" style="float:none;">&times;</button>
- 
-    </p>
+
+    <input class="form-control" ng-show="currentUser" placeholder="Enter Pin" type="password" ng-model="inputPin" />
+    <button class="btn btn-sm" type="submit" id="loginBtn" ng-disabled="!inputPin || currentUser==0" ng-click="checkPin()">Login</button>
+    <span class="text-danger" ng-show="errorMsg">{{ errorMsg }}</span>
+</div>
+
+<!--
+<p>Pin entered: {{inputPin}}</p>
+<p>Current User's PIN: {{users[currentUser].pin}}</p>
+<p>Pin correct: {{correctPin}}</p>-->
+<div ng-show="correctPin">
 <p class="lead">{{currentStatus}}</p>
-<p class="form-inline"><button class="btn" id="clockIn" ng-disabled="clockedIn || currentUser==0" ng-click="clock('clockIn')">Clock In</button> <button class="btn" id="clockOut" ng-disabled="!clockedIn" ng-click="clock('clockOut')">Clock Out</button></p>
+<p class="form-inline">
+        <button class="btn" id="clockIn" ng-disabled="clockedIn || currentUser==0" ng-click="clock('clockIn')">Clock In</button> <button class="btn" id="clockOut" ng-disabled="!clockedIn" ng-click="clock('clockOut')">Clock Out</button>
+    </p>
 <div ng-show="currentUser">
     <h2>Current Pay Period</h2>
     <p class="lead">{{currentTimes.payperiodTotal | number:2}} total hours</p>
@@ -96,4 +114,5 @@
             </tr>
         </tbody>
     </table>
+</div>
 </div>

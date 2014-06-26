@@ -1,7 +1,10 @@
-timeclock.controller('users', function users($scope, usersApi) {
+timeclock.controller('users', function users($scope, usersApi,$routeParams) {
     $scope.newUser = '';
-
-    getUsers();
+    if ($routeParams.id) {
+        getUser($routeParams.id);
+    } else {
+        getUsers();
+    }
     $scope.mytime = new Date();
     function getUsers() {
         $scope.newUser = '';
@@ -13,6 +16,15 @@ timeclock.controller('users', function users($scope, usersApi) {
         });
         usersApi.get(0).then(function(response) {
             $scope.inactiveUsers = response.data;
+        });
+    }
+    
+    function getUser(id) {
+        $scope.users = '';
+        usersApi.getUser(id).then(function(response) {
+            $scope.users = response.data;
+        }, function(err) {
+            alert("something bad happened.");
         });
     }
 
@@ -27,5 +39,20 @@ timeclock.controller('users', function users($scope, usersApi) {
             getUsers();
         });
     };
+    
+    $scope.updateUserDetails = function(user) {
+        $scope.message = {};
+        var tmpUser = user;
+        usersApi.updateUserDetails(user).then(function() {
+           $scope.message.text = "User Saved Successfully!";
+           $scope.message.cssClass = "success";
+           getUser(tmpUser.id);
+        }, function(error) {
+           $scope.message.text = "Uh oh! Something went wrong. Please try again. Error: "+error;
+           $scope.message.cssClass = "danger";
+        }
+        );
+    };
+    
 
 });

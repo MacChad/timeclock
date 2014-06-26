@@ -60,17 +60,23 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
     function reset() {
         $scope.currentTimes = {};
         $scope.currentUser = 0;
-        $scope.selectedDate = moment('MM/DD/YYYY');
+        //$scope.selectedDate = moment('MM/DD/YYYY');
+        $scope.selectedDate = moment().format('MM/DD/YYYY');
         //$scope.selectedDate = new Date();
-        $scope.startDate = "";
-        $scope.endDate = "";
-        $scope.startTime = "";
-        $scope.endTime = "";
+         $scope.startTime = new Date();
+        $scope.endTime = new Date();
+        $scope.currentDate = new Date();
+        $scope.endDate = new Date();
+
     }
 
     $scope.getTimes = function() {
         if($scope.currentUser > 0) {
             $scope.currentTimes = getTimes($scope.selectedDate);
+            //  angular.forEach(getTimes($scope.selectedDate),function(value, key) {
+            //      this.push(key + ': ' + value);
+            //  }, $scope.gridData);
+            // console.log($scope.gridData);
         } else {
             reset();
         }
@@ -93,7 +99,20 @@ timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiod
             $scope.currentTimes = getTimes($scope.selectedDate);
         });
     };
-
+    // $scope.myData = [{name: "Moroni", age: 50},
+    //              {name: "Tiancum", age: 43},
+    //              {name: "Jacob", age: 27},
+    //              {name: "Nephi", age: 29},
+    //              {name: "Enos", age: 34}];
+    
+    //$scope.gridData = [];
+         
+    $scope.getAllTimes = function(start,end) {
+      return clockApi.get($scope.currentUser,start,end);  
+    };
+    
+   // $scope.gridOptions = {data: 'newData'};
+    
     $scope.reset = function() {
         reset();
     };

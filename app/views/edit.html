@@ -44,9 +44,19 @@
     <button ng-show="currentUser && startTime && endTime && selectedDate" ng-disabled="editTime.$invalid" class="btn" ng-click="addRow()">Add</button>
 </div>
 
-
-
 <div ng-show="currentUser">
+    <div class="pull-right">
+        <div class="form-inline">
+            <div class="form-group">
+                <input placeholder="Enter Start Date"  datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="pickStartDate" />
+                <input placeholder="Enter End Date"  datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="pickEndDate" />
+                <button type="button" class="btn btn-default" ng-csv="getAllTimes(pickstartDate,pickEndDate)" filename="export_{{currentUser.name}}_{{currentDate | amDateFormat:'YYYY-mm-dd'}}.csv">Export</button>
+            </div>
+        </div>
+    </div>
+<!--<div class="gridStyle" ng-grid="gridOptions"></div> -->
+
+
     <h2>Pay Period Details</h2>
     <h3>{{startDate | date:'longDate'}} to {{endDate | date:'longDate'}}</h3>
     <p class="lead">{{currentTimes.payperiodTotal | number:2}} total hours</p>

@@ -1,4 +1,4 @@
-timeclock.controller('admin', function admin($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory) {
+timeclock.controller('admin', function admin($scope, usersApi, clockApi, payperiodFactory, customPayperiodFactory, totaltimeFactory) {
     $scope.currentTimes = [];
     $scope.selectedDate = moment().format('MM/DD/YYYY');
     $scope.startDate = "";
@@ -33,9 +33,32 @@ timeclock.controller('admin', function admin($scope, usersApi, clockApi, payperi
     function getDates(date) {
         periodDates = payperiodFactory.periodDates(date);
         $scope.startDate = periodDates.firstWeekStart;
-        $scope.endDate = periodDates.secondWeekEnd;
+        $scope.endDate = periodDates.firstWeekEnd;
+        //$scope.endDate = periodDates.secondWeekEnd;
     }
     //$scope.currentDate = moment().format('shortDate');
+    
+    $scope.getAllTimes = function(startdate,enddate) {
+        
+    };
+    $scope.getCustomTimes = function(date1,date2) {
+        $scope.currentTimes = [];
+        //getDates($scope.selectedDate);
+       // console.log(moment(date1).format('YYYY-MM-DD'));
+        angular.forEach($scope.users, function(value, key) {
+            var obj = {};
+            obj.payperiodTotal = 0;
+            clockApi.get(value.id, moment(date1).format('YYYY-MM-DD'), moment(date2).format('YYYY-MM-DD')).then(function(response) {
+                obj.customTotal = totaltimeFactory.getTotal(response.data);
+                //obj.payperiodTotal += obj.firstWeekTotal;
+                $scope.currentTimes.push({"name":value.name, "times":obj.customTotal});
+                console.log(obj.customTotal);
+                //$scope.arrCurrentTimes.push("name")
+            });
+            
+        });
+        //return obj;
+    };
     $scope.getTimes = function() {
         $scope.currentTimes = [];
         getDates($scope.selectedDate);

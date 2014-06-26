@@ -1,23 +1,30 @@
-var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap'])
+var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap','ngCsv'])
 .config(function($locationProvider, $routeProvider) {
     $routeProvider
         .when("/", { controller: "clock", templateUrl: "app/views/clock.html" })
         .when("/admin/", { controller: "admin", templateUrl: "app/views/admin.html" })
         .when("/admin/edit", { controller: "edit", templateUrl: "app/views/edit.html" })
         .when("/admin/users", { controller: "users", templateUrl: "app/views/users.html" })
+        .when("/admin/users/:id", { controller: "users", templateUrl: "app/views/user.html" })
         .otherwise({ redirectTo: '/' });
 })
 .constant('COMPANYNAME', 'Cornerstone Christian Church')
 .factory('usersApi', ['$http', function($http) {
     return {
         add : function(name) {
-            return $http.get("api/?action=usersAdd&name=" + name);
+            return $http.get("api/?action=usersAdd&name=" + name.name + "&pin="+name.pin);
         },
         get : function(active) {
             return $http.get("api/?action=usersGet&active=" + active);
         },
+        getUser : function(id) {
+            return $http.get("api/?action=userGet&id=" + id);
+        },
         update : function(id) {
             return $http.get("api/?action=usersUpdate&id=" + id);
+        },
+        updateUserDetails : function (user) {
+            return $http.get("api/?action=updateUserDetails&id="+ user.id+ "&name="+user.name+"&pin="+user.pin);
         }
     };
 }])
@@ -49,6 +56,27 @@ var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap'])
         }
     };
 }])
+.factory('customPayperiodFactory', function() {
+    var dateStart = moment('2013-01-07').isoWeek()%2;
+    return {
+        customPeriodDates : function(startdate,enddate) {
+            var momentObj = {};
+            momentDate = moment(date);
+            // if (momentDate.isoWeek()%2 === dateStart) {
+            //     momentDate.day()===0 ? momentDate.day(-7) : momentDate.startOf('week').day(1);
+            // } else {
+            //     momentDate.day()===0 ? momentDate.day(-13) : momentDate.startOf('week').day(-6);
+            // }
+            
+            //momentObj['firstWeekStart'] = momentDate.format('YYYY-MM-DD');
+            //momentObj['secondWeekStart'] = momentObj['firstWeekEnd'] = moment(momentDate).day(8).format('YYYY-MM-DD');
+            //momentObj['secondWeekEnd']  = moment(momentDate).day(15).format('YYYY-MM-DD');
+            momentObj['']
+            console.log(momentObj);
+            return momentObj;
+        }
+    };
+})
 .factory('payperiodFactory', function() {
     var dateStart = moment('2013-01-07').isoWeek()%2;
     return {
