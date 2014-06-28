@@ -17,6 +17,9 @@ var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap','ng
         get : function(active) {
             return $http.get("api/?action=usersGet&active=" + active);
         },
+        deleteUser : function(active) {
+            return $http.get("api/?action=userDelete&id=" + active);
+        },
         getUser : function(id) {
             return $http.get("api/?action=userGet&id=" + id);
         },

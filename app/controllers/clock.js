@@ -58,18 +58,9 @@ timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperi
         if($scope.currentUser > 0) {
             getStatus($scope.currentUser);
             $scope.currentTimes = getTimes(moment());
-            //console.log(moment());
-            $scope.previousTimes = getTimes(moment().day(-13));
-            //clearPin();
-            //$scope.inputPin = "";
-            //$scope.correctPin = false;
+            $scope.previousTimes = getTimes(moment().day(-8));
             setCurrentUser();
-            //console.log($scope.users[$scope.currentUser]);
-            //alert('changed');
-            //console.log('previous time:' + $scope.previousTimes.clockInTime);
-            //console.log('current time:' + $scope.currentTimes.clockInTime);
         } else {
-            //console.log('reset everything back');
             reset();
         }
     };

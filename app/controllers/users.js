@@ -39,7 +39,18 @@ timeclock.controller('users', function users($scope, usersApi,$routeParams) {
             getUsers();
         });
     };
-    
+    $scope.deleteUser = function(user) {
+        $scope.message = {};
+        if(confirm("Are you sure you want to delete this user?")) { usersApi.deleteUser(user.id).then(function() {
+               $scope.message.text = "User Deleted!";
+               $scope.message.cssClass = "success";
+               getUsers();
+            }, function(error) {
+                $scope.message.text = "Uh oh! Something went wrong. Please try again. Error: "+error;
+                $scope.message.cssClass = "danger";
+            });
+        }
+    };
     $scope.updateUserDetails = function(user) {
         $scope.message = {};
         var tmpUser = user;

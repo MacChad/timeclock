@@ -129,6 +129,14 @@ switch ($_GET['action']) {
             $results = DB::update('clock', $columns, "id=%%s", $_GET['id']);
         }
     break;
+    case 'userDelete' :
+        //-delete = remove error
+        //---pass in id (required)
+        //---return success/fail
+        if (isset($_GET['id'])) {
+            $results = DB::delete('users', "id=%%s", $_GET['id']);
+        }
+    break;
 
     case 'clockDelete' :
         //-delete = remove error
@@ -139,7 +147,73 @@ switch ($_GET['action']) {
         }
     break;
 
+
 }
 
 //return query results as JSON
 echo json_encode($results);
+
+
+
+
+// //  GET docs DATA FROM HTTP REQUEST POST
+// $data = json_decode(file_get_contents('php://input'), true);
+ 
+// if($data) {
+// 	//i drilled down to the data i want thats coming from a couchdb instance
+// 	$docs = $data['params']['docs']['docs'];
+ 
+// 	//need to get the right encoding so I encode it and decode from json
+// 	$json_str = json_encode($docs, JSON_UNESCAPED_UNICODE);
+// 	$json_obj = json_decode ($json_str);
+ 
+// 	//we will temporarilly save the CSV data in a string variable
+// 	$csv = "";
+ 
+// 	$fieldNames = array();
+	
+// 	//first we iterate the array/json object and get all the possible 'field/column names' (because is json not all records have the same keys like a SQL database)
+// 	foreach ($docs as $row) {
+// 		foreach ($row['value'] as $key=>$value) {
+// 			//here we check if we've added the field yet and whether or not its an array.  we only add it if its a string or integer
+// 			if(!in_array($key, $fieldNames) AND !is_array($value) AND $key != "_id" AND $key != "_rev") {
+// 				array_push($fieldNames, $key);
+// 			}
+// 		}
+// 	}
+ 
+// 	//add the field names to the first row in the csv file
+// 	for ($i = 0; $i < count($fieldNames); ++$i) {
+// 		$csv = $csv . $fieldNames[$i] . ",";
+// 	}
+// 	$csv = $csv . "\r\n";
+ 
+// 	//iterate through each record in the json data and check if it contains any of the keys in the $fieldNames array
+// 	foreach ($docs as $row) {
+// 		$newArray =  (array) $row['value'];
+// 		for ($i = 0; $i < count($fieldNames); ++$i) {
+// 			if(in_array($fieldNames[$i], array_keys($newArray))) {
+// 				//if the key is found, add the value to the csv and add a comma (if not, just add a comma for an empty column)
+// 				$csv = $csv . preg_replace( "/\r|\n/", " ", str_replace(",","",$newArray[$fieldNames[$i]])) . ",";
+// 			} else {
+// 				$csv = $csv . ", ";
+// 			}
+// 		}
+// 		$csv = $csv . "\r\n";
+// 	}
+ 
+ 
+ 
+// 	$exportedFilename = "data-export-" . date("Y-m-d_H-i-s") . '.csv';
+// 	$fp = fopen($exportedFilename, 'w');
+// 	fwrite($fp, $csv);
+// 	fclose($fp);
+ 
+// 	$url = array('url' => '/assetdb/csv/'. $exportedFilename);
+// 	$fileObj = json_encode($url);
+// 	header('Content-Type: application/json');
+// 	echo $fileObj;
+ 
+// } else {
+// 	echo "No data was provided.";
+// }

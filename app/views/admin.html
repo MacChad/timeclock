@@ -26,7 +26,7 @@
             <div class="form-group">
                 <!--<input placeholder="Enter Start Date"  datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="pickStartDate" />
                 <input placeholder="Enter End Date"  datepicker-popup="shortDate" class="form-control" ng-required="true" ng-model="pickEndDate" />-->
-                <button type="button" class="btn btn-default" ng-csv="currentTimes" filename="export_{{currentUser.name}}_{{currentDate | amDateFormat:'YYYY-mm-dd'}}.csv">Export</button>
+                <button type="button" class="btn btn-default" ng-csv="currentTimes" csv-header="['Name', 'Total Hours']" filename="export_{{pickStartDate | amDateFormat:'YYYY-MM-DD'}}-{{pickEndDate | amDateFormat:'YYYY-MM-DD'}}.csv">Export</button>
             </div>
         </div>
     </div>
