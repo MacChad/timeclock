@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
+<div class="container-fluid"> <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
       <span class="sr-only">Toggle navigation</span>
@@ -10,9 +10,41 @@
     <a class="navbar-brand" href="#">Cornerstone Christian Church</a>
 
   </div>
- 
+ <!--<span ng-show="user.authenticated && user.first_name">Welcome {{ user.first_name }}!</span>-->
   <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+<ul class="nav navbar-nav navbar-right" ng-hide="user-authenticated">
+<li ng-hide="user.authenticated"><a href="#/login">Login</a></li>
+</ul>
+ <!-- Single button -->
+<!--<div class="btn-group navbar-right" ng-show="user.authenticated">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+  Admin <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li ng-repeat="item in navItems">
+      <a href="{{item.url}}" "item.directive">{{item.text}}</a>
+    </li>
+    <li class="divider"></li>
+    <li><a href="#/" ua-logout>Logout</a></li>
+  </ul>
+</div> -->
+<ul class="nav navbar-nav navbar-right" ng-show="user.authenticated">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+      <ul class="dropdown-menu" role="menu">
+      <!--<li ng-repeat="item in navItems">
+        <a href="{{item.url}}" "item.directive">{{item.text}}</a>
+      </li>-->
+      <li><a href="#/admin">Main</a></li>
+      <li><a href="#/admin/users">Users</a></li>
+      <li><a href="#/admin/edit">Edit Clocks</a></li>
+      <li class="divider"></li>
+      <li><a href="#/" ua-logout>Logout</a></li>
+      </ul>
+    </li>
+</ul>
+ <!-- <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
     <!-- <form class="navbar-form navbar-left" role="search" ng-submit="submitPost()" ng-show="signedIn()">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Title" ng-model="post.title">
@@ -22,11 +54,14 @@
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form> -->
-    <ul class="nav navbar-nav navbar-right" >
-  <li ng-repeat="item in navItems">
-    <a href="{{item.url}}">{{item.text}}</a>
-  </li>
-
-</ul>
-  </div><!-- /.navbar-collapse -->
+<!--    <ul class="nav navbar-nav navbar-right" >-->
+<!--  <li ng-repeat="item in navItems">-->
+<!--    <a href="{{item.url}}" "item.directive">{{item.text}}</a>-->
+<!--  </li>-->
+<!--  <li ng-show="user.authenticated"><a class="btn btn-sm btn-danger" href="#" ua-logout>Logout</a>-->
+<!--</ul>-->
+<!-- /.navbar-collapse -->
+</div>
 </nav>
+
+

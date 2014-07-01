@@ -1,12 +1,14 @@
-var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap','ngCsv'])
+var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap','ngCsv','UserApp'])
 .config(function($locationProvider, $routeProvider) {
     $routeProvider
-        .when("/", { controller: "clock", templateUrl: "app/views/clock.html" })
-        .when("/admin/", { controller: "admin", templateUrl: "app/views/admin.html" })
+        .when("/clock", { controller: "clock", templateUrl: "app/views/clock.html", public: true })
+        .when("/login", {templateUrl: "app/views/login.html", login: true})
+        .when("/signup", {templateUrl: "app/views/signup.html"})
+        .when("/admin/", { controller: "admin", templateUrl: "app/views/admin.html"})
         .when("/admin/edit", { controller: "edit", templateUrl: "app/views/edit.html" })
         .when("/admin/users", { controller: "users", templateUrl: "app/views/users.html" })
         .when("/admin/users/:id", { controller: "users", templateUrl: "app/views/user.html" })
-        .otherwise({ redirectTo: '/' });
+        .otherwise({ redirectTo: '/clock' });
 })
 .constant('COMPANYNAME', 'Cornerstone Christian Church')
 .factory('usersApi', ['$http', function($http) {
@@ -151,5 +153,15 @@ var timeclock = angular.module("timeclock", ['angularMoment', 'ui.bootstrap','ng
       });
 
       updateLater(); // kick off the UI update process.
-    }
-  });;
+    };
+  })
+  .run(function(user) {
+      //user.onAuthenticationRequired(function(route, stateParams) {
+        // open login popup, do transition, ...
+        //console.log(user.current);
+        //alert("Sorry, you have to be logged in to access that page!");
+    //});
+	user.init({ appId: '53b1a6925f5fc' });
+
+});
+  

@@ -33,11 +33,11 @@ timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperi
             obj.firstWeek = response.data;
             obj.payperiodTotal += obj.firstWeekTotal;
         });
-        clockApi.get($scope.currentUser, periodDates.secondWeekStart, periodDates.secondWeekEnd).then(function(response) {
-            obj.secondWeekTotal = totaltimeFactory.getTotal(response.data);
-            obj.secondWeek = response.data;
-            obj.payperiodTotal += obj.secondWeekTotal;
-        });
+        //clockApi.get($scope.currentUser, periodDates.secondWeekStart, periodDates.secondWeekEnd).then(function(response) {
+        //    obj.secondWeekTotal = totaltimeFactory.getTotal(response.data);
+        //    obj.secondWeek = response.data;
+        //    obj.payperiodTotal += obj.secondWeekTotal;
+        //});
         return obj;
     }
 
@@ -115,7 +115,7 @@ timeclock.controller('clock', function clock($scope, usersApi, clockApi, payperi
         if (objCurUser.pin === $scope.inputPin) {
              $scope.correctPin = true;
              $scope.errorMsg = "";
-             getTimes();
+             $scope.getTimes();
         } else {
             $scope.correctPin = false;
             $scope.errorMsg = "Invalid Pin!";

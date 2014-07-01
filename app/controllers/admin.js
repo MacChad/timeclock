@@ -1,4 +1,4 @@
-timeclock.controller('admin', function admin($scope, usersApi, clockApi, payperiodFactory, customPayperiodFactory, totaltimeFactory) {
+timeclock.controller('admin', function admin($scope, $location, usersApi, clockApi, payperiodFactory, customPayperiodFactory, totaltimeFactory) {
     $scope.currentTimes = [];
     $scope.selectedDate = moment().format('MM/DD/YYYY');
     $scope.startDate = "";
@@ -26,7 +26,7 @@ timeclock.controller('admin', function admin($scope, usersApi, clockApi, payperi
     formatYear: 'yy',
     startingDay: 1
   };
-
+    
   //$scope.initDate = new Date('2016-15-20');
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate','MM/DD/YYYY'];
   $scope.format = $scope.formats[0];

@@ -1,4 +1,17 @@
-timeclock.controller('edit', function edit($scope, usersApi, clockApi, payperiodFactory, totaltimeFactory) {
+timeclock.controller('edit', function edit($scope, $location, usersApi, clockApi, payperiodFactory, totaltimeFactory) {
+    
+    // var currentUser = user.current;
+    // console.log(currentUser);
+    // alert(currentUser);
+    // console.log('hello');
+    // if(!(currentUser)) {
+    //     console.log('not logged in!');
+    //     $location.path('#/');
+    // }
+    
+    // user.getCurrent().then(function(currentUser) {
+    //     console.log(currentUser.user_id);
+    // });
     $scope.currentTimes = {};
     $scope.currentUser = 0;
     $scope.selectedDate = moment().format('MM/DD/YYYY');

@@ -26,7 +26,7 @@
         <button class="btn" id="clockIn" ng-disabled="clockedIn || currentUser==0" ng-click="clock('clockIn')">Clock In</button> <button class="btn" id="clockOut" ng-disabled="!clockedIn" ng-click="clock('clockOut')">Clock Out</button>
     </p>
 <div ng-show="currentUser">
-    <h2>Current Pay Period</h2>
+    <h2>Current Week</h2>
     <p class="lead">{{currentTimes.payperiodTotal | number:2}} total hours</p>
     <table class="table table-striped" width="400">
         <thead>
@@ -70,7 +70,7 @@
             </tr>
         </tbody>
     </table>
-    <h2>Previous Pay Period</h2>
+    <h2>Previous Week</h2>
     <p class="lead">{{previousTimes.payperiodTotal | number:2}} total hours</p>
     <table class="table table-striped" width="400">
         <thead>
@@ -82,7 +82,7 @@
             </tr>
         </thead>
     </table>
-    <table class="table table-striped" width="400">
+    <!-- <table class="table table-striped" width="400">
         <thead>
             <tr>
                 <th colspan="3" width="75%">Week Total</th>
@@ -97,7 +97,7 @@
                 <td width="25%">{{previousTime.totalTime | number:2}}</td>
             </tr>
         </tbody>
-    </table>
+    </table>-->
     <table class="table table-striped" width="400">
         <thead>
             <tr>
